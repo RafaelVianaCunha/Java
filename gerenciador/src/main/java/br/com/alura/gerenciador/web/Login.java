@@ -14,22 +14,20 @@ import javax.servlet.http.HttpSession;
 import br.com.alura.gerenciador.Usuario;
 import br.com.alura.gerenciador.dao.UsuarioDAO;
 
-@WebServlet(urlPatterns="/login")
-public class Login extends HttpServlet{
+@WebServlet(urlPatterns = "/login")
+public class Login extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email = req.getParameter("email");
 		String senha = req.getParameter("senha");
 		Usuario usuario = new UsuarioDAO().buscaPorEmailESenha(email, senha);
 		PrintWriter writer = resp.getWriter();
-		if(usuario==null){
+		if (usuario == null) {
 			writer.println("<html><body>Usuario Invalido</html></body>");
-		}else{
-			
-			Cookie cookie = new Cookie("usuario.logado", email);
-			cookie.setMaxAge(600);
-			resp.addCookie(cookie);
-			writer.println("<html><body>Usuario Logado: "+email+"</html></body>");
+		} else {
+			HttpSession session = req.getSession();
+			session.setAttribute("usuario.logado", usuario);
+			writer.println("<html><body>Usuario Logado: " + usuario.getEmail() + "</html></body>");
 		}
 	}
 
