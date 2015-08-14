@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Logout extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getSession().removeAttribute("usuario.logado");		
+		req.getSession().removeAttribute("usuarioLogado");		
 		
 		//Servido redireciona para a pagina WEB-INF/paginas/logout.html
 		RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/paginas/logout.html");
