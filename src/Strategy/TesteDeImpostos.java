@@ -1,3 +1,4 @@
+package Strategy;
 
 public class TesteDeImpostos {
 	public static void main(String[] args) {

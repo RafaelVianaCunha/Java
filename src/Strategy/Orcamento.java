@@ -1,3 +1,4 @@
+package Strategy;
 
 public class Orcamento {
 	private double valor;
