@@ -2,6 +2,7 @@
 
 <html>
 <body>
+	<fmt:message key="mensagem.novoProduto"/>
 	Bem vindo ao nosso gerenciador de empresas!
 	<br />
 	
