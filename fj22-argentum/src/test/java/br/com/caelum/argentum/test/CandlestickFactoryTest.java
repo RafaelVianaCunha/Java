@@ -4,12 +4,12 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import br.com.caelum.argentum.modelo.Candlestick;
 import br.com.caelum.argentum.modelo.CandlestickFactory;
 import br.com.caelum.argentum.modelo.Negociacao;
-import junit.framework.Assert;
 
 public class CandlestickFactoryTest {
 
@@ -32,34 +32,39 @@ public class CandlestickFactoryTest {
 		Assert.assertEquals(45.0, candle.getMaximo(), 0.00001);
 		Assert.assertEquals(16760.0, candle.getVolume(), 0.00001);
 	}
-	
-	@Test
+
+	@Test(expected = IllegalArgumentException.class)
 	public void semNegociacoesGeraCandleComZeros() {
-	  Calendar hoje = Calendar.getInstance();
-	  
-	  List<Negociacao> negociacoes = Arrays.asList(); 
-	    
-	  CandlestickFactory fabrica = new CandlestickFactory();
-	  Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
-	  
-	  Assert.assertEquals(0.0, candle.getVolume(), 0.00001);
+		Calendar hoje = Calendar.getInstance();
+
+		List<Negociacao> negociacoes = Arrays.asList();
+
+		CandlestickFactory fabrica = new CandlestickFactory();
+		Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
+
+		Assert.assertEquals(0.0, candle.getVolume(), 0.00001);
 	}
-	
+
 	@Test
 	public void apenasUmaNegociacaoGeraCandleComValoresIguais() {
-	  Calendar hoje = Calendar.getInstance();
+		Calendar hoje = Calendar.getInstance();
 
-	  Negociacao negociacao1 = new Negociacao(40.5, 100, hoje);
+		Negociacao negociacao1 = new Negociacao(40.5, 100, hoje);
 
-	  List<Negociacao> negociacoes = Arrays.asList(negociacao1);
+		List<Negociacao> negociacoes = Arrays.asList(negociacao1);
 
-	  CandlestickFactory fabrica = new CandlestickFactory();
-	  Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
+		CandlestickFactory fabrica = new CandlestickFactory();
+		Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
 
-	  Assert.assertEquals(40.5, candle.getAbertura(), 0.00001);
-	  Assert.assertEquals(40.5, candle.getFechamento(), 0.00001);
-	  Assert.assertEquals(40.5, candle.getMinimo(), 0.00001);
-	  Assert.assertEquals(40.5, candle.getMaximo(), 0.00001);
-	  Assert.assertEquals(4050.0, candle.getVolume(), 0.00001);
+		Assert.assertEquals(40.5, candle.getAbertura(), 0.00001);
+		Assert.assertEquals(40.5, candle.getFechamento(), 0.00001);
+		Assert.assertEquals(40.5, candle.getMinimo(), 0.00001);
+		Assert.assertEquals(40.5, candle.getMaximo(), 0.00001);
+		Assert.assertEquals(4050.0, candle.getVolume(), 0.00001);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void naoCriaNegociacaoComDataNula() {
+		new Negociacao(10, 5, null);
 	}
 }

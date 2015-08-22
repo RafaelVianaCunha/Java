@@ -5,6 +5,10 @@ import java.util.List;
 
 public class CandlestickFactory {
 	public Candlestick constroiCandleParaData(Calendar data, List<Negociacao> negociacoes) {
+		if(negociacoes.size()==0){
+			throw new IllegalArgumentException("Lista de negociacoes vazia");
+		}
+		
 		double maximo = negociacoes.get(0).getPreco();
 		double minimo = negociacoes.get(0).getPreco();
 		double volume = 0;
