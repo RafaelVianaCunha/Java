@@ -9,8 +9,8 @@ public final class Negociacao {
 
 	public Negociacao(double preco, int quantidade, Calendar data) {
 		if (data == null) {
-		    throw new IllegalArgumentException("data nao pode ser nula");
-		  }
+			throw new IllegalArgumentException("data nao pode ser nula");
+		}
 		this.preco = preco;
 		this.quantidade = quantidade;
 		this.data = data;
@@ -27,10 +27,16 @@ public final class Negociacao {
 	public Calendar getData() {
 		return (Calendar) this.data.clone();
 	}
-	
-	//Devolver o volume de dinheiro transferido na negociação
+
+	// Devolver o volume de dinheiro transferido na negociação
 	public double getVolume() {
-		  return preco * quantidade;
-		}
+		return preco * quantidade;
+	}
+
+	public boolean isMesmoDia(Calendar outraData) {
+		return this.data.get(Calendar.DAY_OF_MONTH) == outraData.get(Calendar.DAY_OF_MONTH)
+				&& this.data.get(Calendar.MONTH) == outraData.get(Calendar.MONTH)
+				&& this.data.get(Calendar.YEAR) == outraData.get(Calendar.YEAR);
+	}
 
 }
